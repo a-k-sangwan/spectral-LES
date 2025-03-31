@@ -1,3 +1,11 @@
+"""
+initialize_domain.py
+---------------------
+Initializes the simulation domain for pseudo-spectral Navier-Stokes solver.
+Sets up FFT grid, MPI parallelization, variables, and LES support if enabled.
+Used by all other modules to define the working simulation space.
+"""
+
 from numpy.fft import fftfreq  # , ifft, irfft2, rfft2
 from mpi4py import MPI
 from mpi4py_fft import PFFT, newDistArray
