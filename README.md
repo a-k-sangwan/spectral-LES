@@ -32,4 +32,4 @@ This is a high-performance, MPI-parallelized pseudo-spectral solver for the inco
 Make sure you have the following dependencies installed:
 
 ```bash
-pip install numpy matplotlib pandas mpi4py mpi4py-fft
+pip install numpy matplotlib pandas mpi4py mpi4py-fft h5py
