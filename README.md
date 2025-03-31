@@ -43,3 +43,25 @@ This repository implements a parallelized pseudo-spectral solver for simulating 
 
 ```bash
 mpirun -np <num_procs> python run_simulation.py
+
+---
+
+## References
+
+This solver is adapted from the spectral formulation and implementation presented in:
+
+1. Mortensen, M., & Langtangen, H. P. (2016). High performance Python for direct numerical simulations of turbulent flows. *Computer Physics Communications*, 203, 53–65. https://doi.org/10.1016/j.cpc.2016.02.005
+
+Additional references and background:
+
+2. Pope, S. B. (2000). *Turbulent Flows*. Cambridge University Press.  
+3. Canuto, C., Hussaini, M. Y., Quarteroni, A., & Zang, T. A. (2006). *Spectral Methods: Fundamentals in Single Domains*. Springer.  
+4. Boyd, J. P. (2001). *Chebyshev and Fourier Spectral Methods*. Dover Publications.  
+5. Smagorinsky, J. (1963). General circulation experiments with the primitive equations: I. The basic experiment. *Monthly Weather Review*, 91(3), 99–164.  
+6. Chai, J., & Lee, Y. (2020). Efficient parallel pseudo-spectral method using MPI. *Journal of Computational Physics*, 419, 109676.  
+7. [mpi4py-fft GitHub Repository](https://github.com/mpi4py/mpi4py-fft): A Python package for FFT using MPI.
+
+---
+
+For algorithmic formulation, numerical stability, and energy spectrum interpretation, please refer to the cited works.
+
