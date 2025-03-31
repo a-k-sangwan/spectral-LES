@@ -8,6 +8,7 @@ from mpi4py import MPI
 from mpi4py_fft import HDF5File
 from . import RK4_method as RK4
 from . import ETD2_method as ETD2
+from . import RK3_method as RK3
 from pandas import DataFrame, read_csv
 from matplotlib.pyplot import close
 from numpy import array, empty, meshgrid, sum, unique, max, random
@@ -52,6 +53,10 @@ def spectralMethodSolver(
             RK4.solveForNextTimestep(domain)
         elif domain.method == "ETD2":
             ETD2.solveForNextTimestep(domain)
+        elif domain.method == "RK3":
+            RK3.solveForNextTimestep(domain)
+        else:
+            raise ValueError("Invalid method name")
         u_max = find_max_velocity(domain.U, domain.comm)
         domain.dt = compute_dt(
             domain.U, u_max, domain.nu, domain.comm, dx=domain.dx, CFL=domain.CFL

@@ -1,4 +1,11 @@
 # __all__ = ['solveForNextTimestep']
+# ----------------------------- RK4_method.py -----------------------------
+"""
+RK4_method.py
+-------------
+Contains a classical 4th-order Runge-Kutta method for time integration.
+Includes calculation of the RHS of Navier-Stokes and LES model integration.
+"""
 
 from .math_formula import *
 from .initialize_domain import *

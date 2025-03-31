@@ -1,4 +1,11 @@
 # __all__ = ['solveForNextTimestep']
+"""
+RK3_method.py
+-------------
+Implements a 3rd-order Runge-Kutta scheme for solving the Navier-Stokes equations.
+Supports LES models and handles nonlinear term evaluations.
+"""
+
 
 from .math_formula import *
 from .initialize_domain import *
@@ -11,20 +18,18 @@ from mpi4py import MPI
 
 
 def solveForNextTimestep(domain: InitializeDomain):
-    # RK3 coefficients
-    a = [0.0, -5.0 / 9.0, -153.0 / 128.0]
-    b = [1.0 / 3.0, 15.0 / 16.0, 8.0 / 15.0]
+    dt = domain.dt
+    U_hat = domain.U_hat
+    U0 = domain.U_hat0
+    dU = domain.dU
 
-    domain.U_hat0[:] = domain.U_hat[:]
-    domain.U_hat1[:] = 0.0  # Reset accumulation
-
-    for rk in range(3):
-        domain.dU[:] = computeRHS(domain, domain.dU, rk)
-        if rk < 2:
-            domain.U_hat[:] = domain.U_hat0 + b[rk] * domain.dt * domain.dU
-        domain.U_hat1[:] += a[rk] * domain.dt * domain.dU
-
-    domain.U_hat[:] = domain.U_hat0 + domain.U_hat1
+    U0[:] = U_hat[:]
+    dU[:] = computeRHS(domain, dU, rk=0)   # k1
+    U_hat[:] = U0 + 0.5 * dt * dU
+    dU[:] = computeRHS(domain, dU, rk=1)   # k2
+    U_hat[:] = U0 - dt * dU + 2.0 * dt * dU  
+    dU[:] = computeRHS(domain, dU, rk=2)   # k3
+    U_hat[:] = U0 + dt * (1/6 * dU + 2/3 * dU + 1/6 * dU) 
 
     domain.curl[:] = del_cross_U(
         domain.fft, domain.dim, domain.U_hat, domain.curl, domain.K
